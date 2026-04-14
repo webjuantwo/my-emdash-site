@@ -409,18 +409,21 @@ const publishDate =
 		display: inline-block;
 		padding: var(--tag-padding-y) var(--spacing-2);
 		font-size: var(--font-size-xs);
-		color: var(--color-text-secondary);
-		background: var(--color-surface);
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
+		color: var(--color-muted);
+		background: transparent;
+		border: 1px solid var(--color-border);
 		border-radius: var(--radius);
 		text-decoration: none;
 		transition:
 			color var(--transition-fast),
-			background var(--transition-fast);
+			border-color var(--transition-fast);
 	}
 
 	.meta-tag:hover {
 		color: var(--color-text);
-		background: var(--color-border);
+		border-color: var(--color-text);
 	}
 
 	/* Byline styles */
@@ -523,13 +526,14 @@ const publishDate =
 	}
 
 	.article-content :global(blockquote) {
-		margin: 2em 0;
-		padding: var(--spacing-4) var(--spacing-6);
-		border-left: 3px solid var(--color-border);
-		background: var(--color-bg-subtle);
-		border-radius: 0 var(--radius) var(--radius) 0;
+		margin: 2.5em 0;
+		padding: 0 0 0 var(--spacing-6);
+		border-left: 2px solid var(--color-text);
+		background: none;
 		color: var(--color-text-secondary);
 		font-style: italic;
+		font-size: var(--font-size-xl);
+		line-height: var(--leading-relaxed);
 	}
 
 	.article-content :global(pre) {
@@ -579,14 +583,15 @@ const publishDate =
 	}
 
 	.article-content :global(a) {
-		color: var(--color-accent);
+		color: inherit;
 		text-decoration: underline;
 		text-underline-offset: 3px;
 		text-decoration-thickness: 1px;
+		text-decoration-color: var(--color-border);
 	}
 
 	.article-content :global(a:hover) {
-		text-decoration-thickness: 2px;
+		text-decoration-color: var(--color-text);
 	}
 
 	/* Right column: TOC + Sidebar */
@@ -641,6 +646,7 @@ const publishDate =
 	.toc-content :global(.toc-link:hover),
 	.toc-content :global(.toc-link.active) {
 		color: var(--color-text);
+		font-weight: 500;
 	}
 
 	/* Sidebar widgets */
@@ -890,7 +896,7 @@ const publishDate =
 
 	/* More posts section */
 	.more-posts {
-		background: var(--color-bg-subtle);
+		border-top: 1px solid var(--color-border-subtle);
 		padding: var(--spacing-16) 0;
 		margin-top: var(--spacing-16);
 	}
