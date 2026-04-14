@@ -160,7 +160,9 @@ const formatDate = (date: Date) =>
 		display: flex;
 		align-items: center;
 		gap: var(--spacing-3);
-		font-size: var(--font-size-sm);
+		font-size: var(--font-size-xs);
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
 		color: var(--color-muted);
 		margin-bottom: var(--spacing-2);
 	}
@@ -218,7 +220,7 @@ const formatDate = (date: Date) =>
 	}
 
 	.post-link:hover .post-title {
-		color: var(--color-accent);
+		color: var(--color-muted);
 	}
 
 	.post-excerpt {
@@ -236,20 +238,23 @@ const formatDate = (date: Date) =>
 
 	.post-tag {
 		display: inline-block;
-		padding: var(--tag-padding-y) var(--spacing-3);
-		font-size: var(--font-size-sm);
-		color: var(--color-text-secondary);
-		background: var(--color-surface);
+		padding: var(--tag-padding-y) var(--spacing-2);
+		font-size: var(--font-size-xs);
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
+		color: var(--color-muted);
+		background: transparent;
+		border: 1px solid var(--color-border);
 		border-radius: var(--radius);
 		text-decoration: none;
 		transition:
 			color var(--transition-fast),
-			background var(--transition-fast);
+			border-color var(--transition-fast);
 	}
 
 	.post-tag:hover {
 		color: var(--color-text);
-		background: var(--color-border);
+		border-color: var(--color-text);
 	}
 
 	@media (max-width: 600px) {
