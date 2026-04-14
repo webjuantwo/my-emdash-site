@@ -36,12 +36,10 @@ const formattedDate = date
 <article class="post-card">
 	<a href={href} class="card-link">
 		{
-			featuredImage ? (
+			featuredImage && (
 				<div class="card-image">
 					<Image image={featuredImage} />
 				</div>
-			) : (
-				<div class="card-placeholder" />
 			)
 		}
 		<div class="card-body">
@@ -51,34 +49,12 @@ const formattedDate = date
 						<>
 							<div class="card-bylines">
 								{bylines.slice(0, 1).map((credit) => (
-									<span class="card-byline">
-										{credit.byline.avatarMediaId && (
-											<img
-												src={`/_emdash/api/media/file/${credit.byline.avatarMediaId}`}
-												alt={credit.byline.displayName}
-												class="card-byline-avatar"
-											/>
-										)}
-										<span class="card-byline-name">
-											{credit.byline.displayName}
-										</span>
+									<span class="card-byline-name">
+										{credit.byline.displayName}
 									</span>
 								))}
 								{bylines.length > 1 && (
-									<span
-										class="byline-more"
-										data-tooltip={bylines
-											.slice(1)
-											.map((c) => c.byline.displayName)
-											.join(", ")}
-										title={bylines
-											.slice(1)
-											.map((c) => c.byline.displayName)
-											.join(", ")}
-										tabindex="0"
-									>
-										+{bylines.length - 1}
-									</span>
+									<span class="byline-more">+{bylines.length - 1}</span>
 								)}
 							</div>
 							{(formattedDate || readingTime) && <span class="meta-dot" />}
@@ -110,6 +86,8 @@ const formattedDate = date
 	.post-card {
 		display: flex;
 		flex-direction: column;
+		padding-top: var(--spacing-6);
+		border-top: 1px solid var(--color-border-subtle);
 	}
 
 	.card-link {
@@ -119,9 +97,9 @@ const formattedDate = date
 	}
 
 	.card-image {
-		aspect-ratio: 16 / 10;
+		aspect-ratio: 3 / 2;
 		overflow: hidden;
-		border-radius: var(--radius-lg);
+		border-radius: var(--radius);
 		background: var(--color-surface);
 		margin-bottom: var(--spacing-4);
 	}
@@ -130,18 +108,11 @@ const formattedDate = date
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		transition: transform 0.3s ease;
+		transition: transform 0.4s ease;
 	}
 
 	.card-link:hover .card-image img {
-		transform: scale(1.03);
-	}
-
-	.card-placeholder {
-		aspect-ratio: 16 / 10;
-		border-radius: var(--radius-lg);
-		background: var(--color-surface);
-		margin-bottom: var(--spacing-4);
+		transform: scale(1.02);
 	}
 
 	.card-body {
@@ -154,9 +125,11 @@ const formattedDate = date
 		flex-wrap: wrap;
 		column-gap: var(--spacing-2);
 		row-gap: 0;
-		font-size: var(--font-size-sm);
+		font-size: var(--font-size-xs);
+		letter-spacing: var(--tracking-wide);
 		color: var(--color-muted);
-		margin-bottom: var(--spacing-2);
+		margin-bottom: var(--spacing-3);
+		text-transform: uppercase;
 	}
 
 	.card-meta time,
@@ -165,14 +138,14 @@ const formattedDate = date
 	}
 
 	.meta-dot {
-		width: 3px;
-		height: 3px;
+		width: 2px;
+		height: 2px;
 		border-radius: 50%;
 		background: var(--color-muted);
 	}
 
 	.card-title {
-		font-size: var(--font-size-xl);
+		font-size: var(--font-size-lg);
 		font-weight: 600;
 		line-height: var(--leading-snug);
 		letter-spacing: var(--tracking-snug);
@@ -181,11 +154,11 @@ const formattedDate = date
 	}
 
 	.card-link:hover .card-title {
-		color: var(--color-accent);
+		color: var(--color-muted);
 	}
 
 	.card-excerpt {
-		font-size: var(--font-size-base);
+		font-size: var(--font-size-sm);
 		line-height: var(--leading-relaxed);
 		color: var(--color-text-secondary);
 		display: -webkit-box;
@@ -205,39 +178,29 @@ const formattedDate = date
 		display: inline-block;
 		padding: var(--tag-padding-y) var(--spacing-2);
 		font-size: var(--font-size-xs);
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
 		color: var(--color-muted);
-		background: var(--color-surface);
+		background: transparent;
+		border: 1px solid var(--color-border);
 		border-radius: var(--radius);
 		text-decoration: none;
 		transition:
 			color var(--transition-fast),
-			background var(--transition-fast);
+			border-color var(--transition-fast);
 	}
 
 	.card-tag:hover {
 		color: var(--color-text);
-		background: var(--color-border);
+		border-color: var(--color-text);
 	}
 
 	/* Byline styles */
 	.card-bylines {
 		display: flex;
 		align-items: center;
-		gap: 2px;
-		white-space: nowrap;
-	}
-
-	.card-byline {
-		display: inline-flex;
-		align-items: center;
 		gap: var(--spacing-1);
-	}
-
-	.card-byline-avatar {
-		width: var(--avatar-size-xs);
-		height: var(--avatar-size-xs);
-		border-radius: 50%;
-		object-fit: cover;
+		white-space: nowrap;
 	}
 
 	.card-byline-name {
@@ -246,34 +209,7 @@ const formattedDate = date
 	}
 
 	.byline-more {
-		position: relative;
 		font-size: var(--font-size-xs);
 		color: var(--color-muted);
-		margin-left: 2px;
-		cursor: default;
-		border-radius: var(--radius);
-		outline-offset: 2px;
-	}
-
-	.byline-more:focus-visible {
-		outline: 2px solid var(--color-accent);
-	}
-
-	.byline-more[data-tooltip]:hover::after,
-	.byline-more[data-tooltip]:focus-visible::after {
-		content: attr(data-tooltip);
-		position: absolute;
-		bottom: calc(100% + 6px);
-		left: 50%;
-		transform: translateX(-50%);
-		white-space: nowrap;
-		background: var(--color-text);
-		color: var(--color-bg);
-		font-size: var(--font-size-xs);
-		font-weight: 400;
-		padding: var(--spacing-1) var(--spacing-2);
-		border-radius: var(--radius);
-		pointer-events: none;
-		z-index: 10;
 	}
 </style>
